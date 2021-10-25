@@ -1,0 +1,5 @@
+name: RandomChest
+version: '${project.version}'
+main: yngl.randomchest.RandomChest
+api-version: 1.17
+authors: [ yngl ]

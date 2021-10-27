@@ -2,33 +2,21 @@ package yngl.randomchest;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static org.bukkit.Bukkit.broadcastMessage;
 
 public class EventSpawnChest implements Listener {
     private Object RandomChest;
@@ -157,7 +145,7 @@ public class EventSpawnChest implements Listener {
                     Bukkit.getScheduler().scheduleSyncDelayedTask(yngl.randomchest.RandomChest.getInstance(), () -> {
                         loc.getBlock().setType(Material.AIR);
 
-                        randomAction = 8;//ThreadLocalRandom.current().nextInt(9);
+                        randomAction = ThreadLocalRandom.current().nextInt(9);
 
                         World world = Bukkit.getServer().getWorld("World");
 
@@ -218,49 +206,50 @@ public class EventSpawnChest implements Listener {
                         else if(randomAction == 4){
                             for (Player players : Bukkit.getOnlinePlayers()) {
                                 players.sendMessage(ChatColor.RED + "Сгори свинья!");
+                                player.setFireTicks(400);
 
-                                Location locP = players.getLocation();
+//                                Location locP = players.getLocation();
+//
+//                                double xP = locP.getX();
+//                                double yP = locP.getY();
+//                                double zP = locP.getZ();
+//
+//                                Location loc_a = null;
 
-                                double xP = locP.getX();
-                                double yP = locP.getY();
-                                double zP = locP.getZ();
+//                                Material material = Material.MAGMA_BLOCK;
 
-                                Location loc_a = null;
-
-                                Material material = Material.MAGMA_BLOCK;
-
-                                for(double xx = xP - 2; xx <= xP + 2; xx++){
-                                    for(double zz = zP - 2; zz <= zP + 2; zz++){
-                                        loc_a = new Location(world, xx, yP - 2, zz);
-                                        Block b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                        loc_a = new Location(world, xx, yP + 3, zz);
-                                        b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                    }
-                                }
-
-                                for(double yy = yP - 2; yy <= yP + 3; yy++){
-                                    for(double zz = zP - 2; zz <= zP + 2; zz++){
-                                        loc_a = new Location(world, xP - 2, yy, zz);
-                                        Block b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                        loc_a = new Location(world, xP + 2, yy, zz);
-                                        b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                    }
-                                }
-
-                                for(double yy = yP - 2; yy <= yP + 3; yy++){
-                                    for(double xx = xP - 2; xx <= xP + 2; xx++){
-                                        loc_a = new Location(world, xx, yy, zP - 2);
-                                        Block b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                        loc_a = new Location(world, xx, yy, zP + 2);
-                                        b_a = loc_a.getBlock();
-                                        b_a.setType(material);
-                                    }
-                                }
+//                                for(double xx = xP - 2; xx <= xP + 2; xx++){
+//                                    for(double zz = zP - 2; zz <= zP + 2; zz++){
+//                                        loc_a = new Location(world, xx, yP - 2, zz);
+//                                        Block b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                        loc_a = new Location(world, xx, yP + 2, zz);
+//                                        b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                    }
+//                                }
+//
+//                                for(double yy = yP - 2; yy <= yP + 2; yy++){
+//                                    for(double zz = zP - 2; zz <= zP + 2; zz++){
+//                                        loc_a = new Location(world, xP - 2, yy, zz);
+//                                        Block b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                        loc_a = new Location(world, xP + 2, yy, zz);
+//                                        b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                    }
+//                                }
+//
+//                                for(double yy = yP - 2; yy <= yP + 3; yy++){
+//                                    for(double xx = xP - 2; xx <= xP + 2; xx++){
+//                                        loc_a = new Location(world, xx, yy, zP - 2);
+//                                        Block b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                        loc_a = new Location(world, xx, yy, zP + 2);
+//                                        b_a = loc_a.getBlock();
+//                                        b_a.setType(material);
+//                                    }
+//                                }
                             }
                         }
                         else if(randomAction == 5){
@@ -273,18 +262,27 @@ public class EventSpawnChest implements Listener {
                                 int yP = (int) locP.getY();
                                 int zP = (int) locP.getZ();
 
-                                for(int xx = xP - 1; xx <= xP + 1; xx++){
-                                    loc_6 = new Location(world, xx, yP, zP + 2);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
-                                    loc_6 = new Location(world, xx, yP, zP - 2);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
-                                }
-                                for(int zz = zP - 1; zz <= zP + 1; zz++){
-                                    loc_6 = new Location(world, xP - 2, yP, zz);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
-                                    loc_6 = new Location(world, xP + 2, yP, zz);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
-                                }
+                                loc_6 = new Location(world, xP, yP, zP + 3);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+                                loc_6 = new Location(world, xP, yP, zP - 3);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+                                loc_6 = new Location(world, xP + 3, yP, zP );
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+                                loc_6 = new Location(world, xP - 3, yP, zP);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+
+//                                for(int xx = xP - 1; xx <= xP + 1; xx++){
+//                                    loc_6 = new Location(world, xx, yP, zP + 2);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+//                                    loc_6 = new Location(world, xx, yP, zP - 2);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+//                                }
+//                                for(int zz = zP - 1; zz <= zP + 1; zz++){
+//                                    loc_6 = new Location(world, xP - 2, yP, zz);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+//                                    loc_6 = new Location(world, xP + 2, yP, zz);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
+//                                }
                             }
                         }
                         else if(randomAction == 6){
@@ -314,6 +312,8 @@ public class EventSpawnChest implements Listener {
                                     Block b_5 = loc_5.getBlock();
                                     b_5.setType(Material.AIR);
                                 }
+                                locP = new Location(world, xP, yP - 1, zP);
+                                players.teleport(locP);
                             }
                         }
                         else if(randomAction == 7){
@@ -365,6 +365,15 @@ public class EventSpawnChest implements Listener {
                     }, 80);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak_diamond(BlockBreakEvent event){
+        if(event.getBlock().getType() == Material.DIAMOND_ORE){
+            Location loc = event.getBlock().getLocation();
+            loc.getBlock().setType(Material.AIR);
+            loc.getWorld().dropItem(loc, new ItemStack(Material.COAL));
         }
     }
 }

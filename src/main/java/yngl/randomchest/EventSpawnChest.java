@@ -174,16 +174,16 @@ public class EventSpawnChest implements Listener {
                             Location location = new Location(world, randomXp, 256, randomZp);
 
                             for (Player players : Bukkit.getOnlinePlayers()) {
-                                player.sendTitle(ChatColor.RED + "Не упади!", "", 1, 60, 1);
+//                                player.sendTitle(ChatColor.RED + "Не упади!", "", 1, 60, 1);
                                 players.teleport(location);
-//                                players.sendMessage(ChatColor.WHITE + "Не упади!");
+                                players.sendMessage(ChatColor.RED + "Не упади!");
                             }
                         }
                         else if(randomAction == 1){
                             for (Player players : Bukkit.getOnlinePlayers()) {
                                 players.getKiller();
-                                player.sendTitle(ChatColor.RED + "Увы, не повезло :(", "", 1, 60, 1);
-//                                players.sendMessage(ChatColor.WHITE + "Увы, не повезло :(");
+//                                player.sendTitle(ChatColor.RED + "Увы, не повезло :(", "", 1, 60, 1);
+                                players.sendMessage(ChatColor.RED + "Увы, не повезло :(");
                             }
                         }
                         else if(randomAction == 2){
@@ -273,13 +273,13 @@ public class EventSpawnChest implements Listener {
                                 int yP = (int) locP.getY();
                                 int zP = (int) locP.getZ();
 
-                                for(int xx = xP - 2; xx <= xP + 2; xx++){
+                                for(int xx = xP - 1; xx <= xP + 1; xx++){
                                     loc_6 = new Location(world, xx, yP, zP + 2);
                                     loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
                                     loc_6 = new Location(world, xx, yP, zP - 2);
                                     loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
                                 }
-                                for(int zz = zP - 2; zz <= zP + 2; zz++){
+                                for(int zz = zP - 1; zz <= zP + 1; zz++){
                                     loc_6 = new Location(world, xP - 2, yP, zz);
                                     loc_6.getWorld().spawnEntity(loc_6, EntityType.PIG);
                                     loc_6 = new Location(world, xP + 2, yP, zz);
@@ -299,14 +299,20 @@ public class EventSpawnChest implements Listener {
 
                                 Location loc_5 = null;
 
+//                                for(double yy = 255; yy > 5; yy--){
+//                                    for(double xx = xP - 1; xx <= xP + 1; xx++) {
+//                                        for (double zz = zP - 1; zz <= zP + 1; zz++) {
+//                                            loc_5 = new Location(world, xx, yy, zz);
+//                                            Block b_5 = loc_5.getBlock();
+//                                            b_5.setType(Material.AIR);
+//                                        }
+//                                    }
+//                                }
+
                                 for(double yy = 255; yy > 5; yy--){
-                                    for(double xx = xP - 1; xx <= xP + 1; xx++) {
-                                        for (double zz = zP - 1; zz <= zP + 1; zz++) {
-                                            loc_5 = new Location(world, xx, yy, zz);
-                                            Block b_5 = loc_5.getBlock();
-                                            b_5.setType(Material.AIR);
-                                        }
-                                    }
+                                    loc_5 = new Location(world, xP, yy, zP);
+                                    Block b_5 = loc_5.getBlock();
+                                    b_5.setType(Material.AIR);
                                 }
                             }
                         }
@@ -320,18 +326,26 @@ public class EventSpawnChest implements Listener {
                                 int yP = (int) locP.getY();
                                 int zP = (int) locP.getZ();
 
-                                for(int xx = xP - 3; xx <= xP + 3; xx++){
-                                    loc_6 = new Location(world, xx, yP, zP + 3);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
-                                    loc_6 = new Location(world, xx, yP, zP - 3);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
-                                }
-                                for(int zz = zP - 3; zz <= zP + 3; zz++){
-                                    loc_6 = new Location(world, xP - 3, yP, zz);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
-                                    loc_6 = new Location(world, xP + 3, yP, zz);
-                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
-                                }
+//                                for(int xx = xP - 3; xx <= xP + 3; xx++){
+//                                    loc_6 = new Location(world, xx, yP, zP + 3);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+//                                    loc_6 = new Location(world, xx, yP, zP - 3);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+//                                }
+//                                for(int zz = zP - 3; zz <= zP + 3; zz++){
+//                                    loc_6 = new Location(world, xP - 3, yP, zz);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+//                                    loc_6 = new Location(world, xP + 3, yP, zz);
+//                                    loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+//                                }
+                                loc_6 = new Location(world, xP, yP, zP + 3);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+                                loc_6 = new Location(world, xP, yP, zP - 3);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+                                loc_6 = new Location(world, xP + 3, yP, zP );
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
+                                loc_6 = new Location(world, xP - 3, yP, zP);
+                                loc_6.getWorld().spawnEntity(loc_6, EntityType.ZOMBIE);
                             }
                         }
                         else if(randomAction == 8){

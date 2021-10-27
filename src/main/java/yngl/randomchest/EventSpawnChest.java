@@ -7,16 +7,22 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.apache.logging.log4j.LogManager.getLogger;
 
 public class EventSpawnChest implements Listener {
     private Object RandomChest;
@@ -57,23 +63,78 @@ public class EventSpawnChest implements Listener {
 
                 Chest chest = (Chest)b.getState();
                 Inventory inv = chest.getInventory();
-                Material[] material = new Material[]{Material.BEDROCK};
-                Random random = new Random();
+
                 for(int i = 0; i < ThreadLocalRandom.current().nextInt(4); i++) {
-                    ItemStack itemRand = new ItemStack(material[random.nextInt(material.length)], 1);
-                    inv.addItem(itemRand);
+                    double rnd = new Random().nextFloat();
+                    if (rnd < 0.01) {
+                        ItemStack itemRand = new ItemStack(Material.BEDROCK, 1);
+                        inv.addItem(itemRand);
+                    }
+                    else if (rnd < 0.1){
+                        double rnd_dianobd_num = new Random().nextFloat();
+                        int num_diamond = 0;
+                        if (rnd_dianobd_num < 0.1){
+                            num_diamond = 1;
+                        }
+                        else if (rnd_dianobd_num < 0.25){
+                            num_diamond = 2;
+                        }
+                        else if (rnd_dianobd_num < 0.5){
+                            num_diamond = 3;
+                        }
+                        else if (rnd_dianobd_num < 0.75){
+                            num_diamond = 4;
+                        }
+                        else if (rnd_dianobd_num >= 0.75){
+                            num_diamond = 5;
+                        }
+                        ItemStack itemRand = new ItemStack(Material.DIAMOND, num_diamond);
+                        inv.addItem(itemRand);
+                    }
+                    else if (rnd < 0.25){
+                        double rnd_iron_num = new Random().nextFloat();
+                        int num_iron = 0;
+                        if (rnd_iron_num < 0.1){
+                            num_iron = 1;
+                        }
+                        else if (rnd_iron_num < 0.25){
+                            num_iron = 2;
+                        }
+                        else if (rnd_iron_num < 0.5){
+                            num_iron = 3;
+                        }
+                        else if (rnd_iron_num < 0.75){
+                            num_iron = 4;
+                        }
+                        else if (rnd_iron_num >= 0.75){
+                            num_iron = 5;
+                        }
+                        ItemStack itemRand = new ItemStack(Material.IRON_INGOT, num_iron);
+                        inv.addItem(itemRand);
+                    }
+                    else if (rnd < 0.33){
+                        int rnd_book_tom = ThreadLocalRandom.current().nextInt(3);
+                        if (rnd_book_tom == 0)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_1.book);
+                        else if (rnd_book_tom == 1)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_2.book);
+                        else if (rnd_book_tom == 2)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_3.book);
+                    }
+                    else if (rnd >= 0.5){
+                        int rnd_item = ThreadLocalRandom.current().nextInt(4);
+                        if (rnd_item == 0)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Sword_my);
+                        else if (rnd_item == 1)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Diamond_my);
+                        else if (rnd_item == 2)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Emerald_my);
+                        else if (rnd_item == 3)
+                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Lapis_my);
+                    }
+//                    ItemStack itemRand = new ItemStack(material[random.nextInt(material.length)], 1);
+//                    inv.addItem(itemRand);
                 }
-                inv.addItem(yngl.randomchest.RandomChest.getInstance().itemPalka);
-                Book book = new Book();
-                book.setTitle(ChatColor.GREEN + "Это книга");
-                book.setAuthor(ChatColor.RED + "Пингвин написал");
-                book.addToPage(ChatColor.BLUE + "Найди все плюшки в сундуках и устрой полный пиздос на сервере!!!");
-                book.addPage();
-                book.addInfo();
-                book.addToPage(ChatColor.BLUE + "Ты еблан что ли?");
-                book.addPage();
-                book.addInfo();
-                inv.addItem(book.book);
 
                 flagChest = false;
             }
@@ -375,5 +436,32 @@ public class EventSpawnChest implements Listener {
             loc.getBlock().setType(Material.AIR);
             loc.getWorld().dropItem(loc, new ItemStack(Material.COAL));
         }
+    }
+
+    @EventHandler
+    public void onSwordCrushing(PlayerInteractEvent event){
+        if (event.getItem() == null) return;
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+            if (event.getPlayer().getItemInHand().equals(yngl.randomchest.RandomChest.getInstance().SwordCrushing)) {
+                Player player = event.getPlayer();
+//                getLogger().info("запуск");
+                Bukkit.broadcastMessage(ChatColor.RED + "Игрок " + player.getName() + " активировал Меч сокрушения!");
+                Random r = new Random();
+                List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+                players.remove(player);
+                if (players.size() != 0) {
+                    Player random_player = players.get(r.nextInt(players.size()));
+                    random_player.getKiller();
+                    player.damage(100);
+                }
+                else{
+                    player.sendMessage(ChatColor.BLUE + "На сервере нету жертвы :(");
+                }
+//                for (Player player1 : Bukkit.getOnlinePlayers()) {
+//                    player1.sendMessage(ChatColor.RED + "Игрок " + player.getName() + " активировал Меч сокрушения!");
+//                }
+            }
+        }
+
     }
 }

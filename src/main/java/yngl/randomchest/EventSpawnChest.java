@@ -451,8 +451,8 @@ public class EventSpawnChest implements Listener {
                 players.remove(player);
                 if (players.size() != 0) {
                     Player random_player = players.get(r.nextInt(players.size()));
-                    random_player.getKiller();
-                    player.damage(100);
+                    random_player.damage(100, player);
+                    player.damage(4.5);
                 }
                 else{
                     player.sendMessage(ChatColor.BLUE + "На сервере нету жертвы :(");

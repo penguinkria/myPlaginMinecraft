@@ -170,6 +170,8 @@ public final class RandomChest extends JavaPlugin {
         meta.setDisplayName(ChatColor.YELLOW + "Меч сокрушения");
         lore.add("Будь аккуратен");
         meta.addEnchant(Enchantment.VANISHING_CURSE, 1, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 5, true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
         meta.setLore(lore);
         SwordCrushing.setItemMeta(meta);
 

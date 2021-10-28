@@ -132,9 +132,11 @@ public class EventSpawnChest implements Listener {
                         else if (rnd_item == 3)
                             inv.addItem(yngl.randomchest.RandomChest.getInstance().Lapis_my);
                     }
-//                    ItemStack itemRand = new ItemStack(material[random.nextInt(material.length)], 1);
-//                    inv.addItem(itemRand);
                 }
+
+                ItemStack itemRand;
+                itemRand = new ItemStack(yngl.randomchest.RandomChest.getInstance().SwordCrushing);
+                inv.addItem(itemRand);
 
                 flagChest = false;
             }

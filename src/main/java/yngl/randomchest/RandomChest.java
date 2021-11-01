@@ -96,7 +96,7 @@ public final class RandomChest extends JavaPlugin {
 
         book_1.setTitle(ChatColor.GREEN + "Том 1");
         book_1.setAuthor(ChatColor.RED + "Пингвин написал");
-        book_1.addToPage(ChatColor.BLUE + "Найди все плюшки в сундуках и устрой полный п****ц на сервере!!!");
+        book_1.addToPage(ChatColor.BLUE + "Найди все плюшки в сундуках и устрой очень нехорошие дела на сервере!!!");
         book_1.addPage();
         book_1.addInfo();
 

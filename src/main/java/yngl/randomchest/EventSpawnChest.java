@@ -3,12 +3,16 @@ package yngl.randomchest;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -64,89 +68,163 @@ public class EventSpawnChest implements Listener {
                 Chest chest = (Chest)b.getState();
                 Inventory inv = chest.getInventory();
 
-                for(int i = 0; i < ThreadLocalRandom.current().nextInt(4); i++) {
-                    double rnd = new Random().nextFloat();
-                    if (rnd < 0.01) {
-                        ItemStack itemRand = new ItemStack(Material.BEDROCK, 1);
-                        inv.addItem(itemRand);
+//                for(int i = 0; i < ThreadLocalRandom.current().nextInt(4); i++) {
+//                    double rnd = new Random().nextFloat();
+//                    if (rnd < 0.01) {
+//                        ItemStack itemRand = new ItemStack(Material.BEDROCK, 1);
+//                        inv.addItem(itemRand);
+//                    }
+//                    else if (rnd < 0.1){
+//                        double rnd_dianobd_num = new Random().nextFloat();
+//                        int num_diamond = 0;
+//                        if (rnd_dianobd_num < 0.1){
+//                            num_diamond = 1;
+//                        }
+//                        else if (rnd_dianobd_num < 0.25){
+//                            num_diamond = 2;
+//                        }
+//                        else if (rnd_dianobd_num < 0.5){
+//                            num_diamond = 3;
+//                        }
+//                        else if (rnd_dianobd_num < 0.75){
+//                            num_diamond = 4;
+//                        }
+//                        else if (rnd_dianobd_num >= 0.75){
+//                            num_diamond = 5;
+//                        }
+//                        ItemStack itemRand = new ItemStack(Material.DIAMOND, num_diamond);
+//                        inv.addItem(itemRand);
+//                    }
+//                    else if (rnd < 0.25){
+//                        double rnd_iron_num = new Random().nextFloat();
+//                        int num_iron = 0;
+//                        if (rnd_iron_num < 0.1){
+//                            num_iron = 1;
+//                        }
+//                        else if (rnd_iron_num < 0.25){
+//                            num_iron = 2;
+//                        }
+//                        else if (rnd_iron_num < 0.5){
+//                            num_iron = 3;
+//                        }
+//                        else if (rnd_iron_num < 0.75){
+//                            num_iron = 4;
+//                        }
+//                        else if (rnd_iron_num >= 0.75){
+//                            num_iron = 5;
+//                        }
+//                        ItemStack itemRand = new ItemStack(Material.IRON_INGOT, num_iron);
+//                        inv.addItem(itemRand);
+//                    }
+//                    else if (rnd < 0.33){
+//                        int rnd_book_tom = ThreadLocalRandom.current().nextInt(3);
+//                        if (rnd_book_tom == 0)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_1.book);
+//                        else if (rnd_book_tom == 1)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_2.book);
+//                        else if (rnd_book_tom == 2)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_3.book);
+//                    }
+//                    else if (rnd >= 0.5){
+//                        int rnd_item = ThreadLocalRandom.current().nextInt(4);
+//                        if (rnd_item == 0)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Sword_my);
+//                        else if (rnd_item == 1)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Diamond_my);
+//                        else if (rnd_item == 2)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Emerald_my);
+//                        else if (rnd_item == 3)
+//                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Lapis_my);
+//                    }
+//                }
+
+                double rnd = new Random().nextFloat();
+                if (rnd < 0.01) {
+                    ItemStack itemRand = new ItemStack(Material.BEDROCK, 1);
+                    inv.addItem(itemRand);
+                }
+                rnd = new Random().nextFloat();
+                if (rnd < 0.1){
+                    double rnd_dianobd_num = new Random().nextFloat();
+                    int num_diamond = 0;
+                    if (rnd_dianobd_num < 0.1){
+                        num_diamond = 1;
                     }
-                    else if (rnd < 0.1){
-                        double rnd_dianobd_num = new Random().nextFloat();
-                        int num_diamond = 0;
-                        if (rnd_dianobd_num < 0.1){
-                            num_diamond = 1;
-                        }
-                        else if (rnd_dianobd_num < 0.25){
-                            num_diamond = 2;
-                        }
-                        else if (rnd_dianobd_num < 0.5){
-                            num_diamond = 3;
-                        }
-                        else if (rnd_dianobd_num < 0.75){
-                            num_diamond = 4;
-                        }
-                        else if (rnd_dianobd_num >= 0.75){
-                            num_diamond = 5;
-                        }
-                        ItemStack itemRand = new ItemStack(Material.DIAMOND, num_diamond);
-                        inv.addItem(itemRand);
+                    else if (rnd_dianobd_num < 0.25){
+                        num_diamond = 2;
                     }
-                    else if (rnd < 0.25){
-                        double rnd_iron_num = new Random().nextFloat();
-                        int num_iron = 0;
-                        if (rnd_iron_num < 0.1){
-                            num_iron = 1;
-                        }
-                        else if (rnd_iron_num < 0.25){
-                            num_iron = 2;
-                        }
-                        else if (rnd_iron_num < 0.5){
-                            num_iron = 3;
-                        }
-                        else if (rnd_iron_num < 0.75){
-                            num_iron = 4;
-                        }
-                        else if (rnd_iron_num >= 0.75){
-                            num_iron = 5;
-                        }
-                        ItemStack itemRand = new ItemStack(Material.IRON_INGOT, num_iron);
-                        inv.addItem(itemRand);
+                    else if (rnd_dianobd_num < 0.5){
+                        num_diamond = 3;
                     }
-                    else if (rnd < 0.33){
-                        int rnd_book_tom = ThreadLocalRandom.current().nextInt(3);
-                        if (rnd_book_tom == 0)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_1.book);
-                        else if (rnd_book_tom == 1)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_2.book);
-                        else if (rnd_book_tom == 2)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().book_3.book);
+                    else if (rnd_dianobd_num < 0.75){
+                        num_diamond = 4;
                     }
-                    else if (rnd >= 0.5){
-                        int rnd_item = ThreadLocalRandom.current().nextInt(4);
-                        if (rnd_item == 0)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Sword_my);
-                        else if (rnd_item == 1)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Diamond_my);
-                        else if (rnd_item == 2)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Emerald_my);
-                        else if (rnd_item == 3)
-                            inv.addItem(yngl.randomchest.RandomChest.getInstance().Lapis_my);
+                    else if (rnd_dianobd_num >= 0.75){
+                        num_diamond = 5;
                     }
+                    ItemStack itemRand = new ItemStack(Material.DIAMOND, num_diamond);
+                    inv.addItem(itemRand);
+                }
+                rnd = new Random().nextFloat();
+                if (rnd < 0.25){
+                    double rnd_iron_num = new Random().nextFloat();
+                    int num_iron = 0;
+                    if (rnd_iron_num < 0.1){
+                        num_iron = 1;
+                    }
+                    else if (rnd_iron_num < 0.25){
+                        num_iron = 2;
+                    }
+                    else if (rnd_iron_num < 0.5){
+                        num_iron = 3;
+                    }
+                    else if (rnd_iron_num < 0.75){
+                        num_iron = 4;
+                    }
+                    else if (rnd_iron_num >= 0.75){
+                        num_iron = 5;
+                    }
+                    ItemStack itemRand = new ItemStack(Material.IRON_INGOT, num_iron);
+                    inv.addItem(itemRand);
+                }
+                rnd = new Random().nextFloat();
+                if (rnd < 0.5){
+                    int rnd_book_tom = ThreadLocalRandom.current().nextInt(3);
+                    if (rnd_book_tom == 0)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().book_1.book);
+                    else if (rnd_book_tom == 1)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().book_2.book);
+                    else if (rnd_book_tom == 2)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().book_3.book);
+                }
+                rnd = new Random().nextFloat();
+                if (rnd >= 0.5){
+                    int rnd_item = ThreadLocalRandom.current().nextInt(4);
+                    if (rnd_item == 0)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().Sword_my);
+                    else if (rnd_item == 1)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().Diamond_my);
+                    else if (rnd_item == 2)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().Emerald_my);
+                    else if (rnd_item == 3)
+                        inv.addItem(yngl.randomchest.RandomChest.getInstance().Lapis_my);
                 }
 
-                ItemStack itemRand;
-                itemRand = new ItemStack(yngl.randomchest.RandomChest.getInstance().SwordCrushing);
-                inv.addItem(itemRand);
+//                ItemStack itemRand;
+//                itemRand = new ItemStack(yngl.randomchest.RandomChest.getInstance().SwordCrushing);
+//                inv.addItem(itemRand);
 
                 flagChest = false;
             }
             if(!flagChest) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
+//                    Bukkit.broadcastMessage(ChatColor.AQUA + "сундук на координатах: " + String.valueOf(randomX) +
+//                                    " " + String.valueOf(randomY) + " " + String.valueOf(randomZ));
                     player.sendMessage(ChatColor.AQUA + "сундук на координатах: " + String.valueOf(randomX) +
                             " " + String.valueOf(randomY) + " " + String.valueOf(randomZ));
                 }
             }
-        }, 0, 200);
+        }, 0, 1200);
 
         blockChec = Bukkit.getScheduler().scheduleSyncRepeatingTask(yngl.randomchest.RandomChest.getInstance(), () -> {
             if(!flagChest) {
@@ -200,6 +278,7 @@ public class EventSpawnChest implements Listener {
 
                 if (x == randomX && y == randomY && z == randomZ) {
                     for (Player players : Bukkit.getOnlinePlayers()) {
+//                        Bukkit.broadcastMessage(ChatColor.GREEN + "Игрок " + player.getName() + " открыл сундук!");
 //                        player.sendTitle(ChatColor.GREEN + player.getName(), ChatColor.WHITE + "открыл сундук", 1, 60, 1);
                         players.sendMessage(ChatColor.GREEN + "Игрок " + player.getName() + " открыл сундук!");
                     }
@@ -232,7 +311,7 @@ public class EventSpawnChest implements Listener {
                         }
                         else if(randomAction == 1){
                             for (Player players : Bukkit.getOnlinePlayers()) {
-                                players.getKiller();
+                                players.setHealth(0.0);
 //                                player.sendTitle(ChatColor.RED + "Увы, не повезло :(", "", 1, 60, 1);
                                 players.sendMessage(ChatColor.RED + "Увы, не повезло :(");
                             }
@@ -454,16 +533,44 @@ public class EventSpawnChest implements Listener {
                 if (players.size() != 0) {
                     Player random_player = players.get(r.nextInt(players.size()));
                     random_player.damage(100, player);
-                    player.damage(4.5);
+//                    player.damage(4.5);
+                    if (player.getHealth() > 20.0){
+                        player.setHealth(20.0);
+//                        player.getWorld().strikeLightning(player.getLocation());
+                    }
+                    else if (player.getHealth() > 0.5 && player.getHealth() <= 20){
+                        player.setHealth(0.5);
+                    }
+                    else{
+                        player.setHealth(0.0);
+                    }
                 }
                 else{
                     player.sendMessage(ChatColor.BLUE + "На сервере нету жертвы :(");
                 }
-//                for (Player player1 : Bukkit.getOnlinePlayers()) {
-//                    player1.sendMessage(ChatColor.RED + "Игрок " + player.getName() + " активировал Меч сокрушения!");
-//                }
             }
         }
 
+    }
+
+//    @EventHandler
+//    public void onArmorWear(InventoryClickEvent e) {
+//        if (e.getSlotType().equals(InventoryType.SlotType.ARMOR)) {
+//            Bukkit.broadcastMessage(ChatColor.WHITE + "Это броня");
+//        }
+//    }
+    @EventHandler
+    public void TNTBabah(BlockPlaceEvent event) {
+        if (event.getBlock().getType().equals(Material.TNT)){
+            Location lot_tnt = event.getBlock().getLocation();
+//            Location lot_tnt = event.getPlayer().getLocation();
+            Location loc = null;
+            loc = new Location(lot_tnt.getWorld(), lot_tnt.getX(), lot_tnt.getY() + 5, lot_tnt.getZ());
+            event.getBlock().setType(Material.AIR);
+            for(int i = 0; i < 1; i++) {
+                Entity tnt = Bukkit.getWorld("world").spawn(loc, TNTPrimed.class);
+                ((TNTPrimed)tnt).setFuseTicks(25);
+            }
+        }
     }
 }
